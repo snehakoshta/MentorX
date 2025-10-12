@@ -1,0 +1,410 @@
+/* -------------------- Wrapper & Body -------------------- */
+.placement-notes-container {
+  min-height: 100vh;
+  padding: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* -------------------- Heading -------------------- */
+.placement-notes-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #00d4ff;
+  text-shadow: 0 0 10px #00d4ff;
+}
+
+/* -------------------- Grid -------------------- */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* -------------------- Card -------------------- */
+.note-card {
+  perspective: 1000px;
+  width: 100%;
+  height: 220px;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.note-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 25, 40, 0.85);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Front */
+.card-front h2 {
+  color: #00d4ff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.card-front p {
+  flex: 1;
+  font-size: 1rem;
+  color: #cfd8dc;
+}
+
+/* Back */
+.card-back {
+  transform: rotateY(180deg);
+}
+.card-back h2 {
+  color: #00ffea;
+}
+.card-back p {
+  color: #e0e0e0;
+}
+
+/* -------------------- Buttons -------------------- */
+.note-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.note-actions button,
+.note-actions a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.note-actions button {
+  background-color: #0a192f;
+  color: #00d4ff;
+}
+.note-actions button:hover {
+  background-color: #00d4ff;
+  color: #0a192f;
+}
+
+.locked-btn {
+  background-color: #ff006e;
+  color: #fff;
+}
+.locked-btn:hover {
+  background-color: #ff3366;
+}
+
+.download-btn {
+  background-color: #00ffea;
+  color: #0a192f;
+}
+.download-btn:hover {
+  background-color: #00d4ff;
+  color: #fff;
+}
+
+.view-btn {
+  background-color: #0077ff;
+  color: #fff;
+}
+.view-btn:hover {
+  background-color: #00aaff;
+  color: #000;
+}
+
+/* -------------------- QR Modal -------------------- */
+.payment-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.payment-modal {
+  background: linear-gradient(145deg, #0f2027, #203a43);
+  border-radius: 20px;
+  padding: 30px;
+  width: 350px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 30px #00d4ff;
+}
+
+.payment-modal h2 {
+  color: #00d4ff;
+  margin-bottom: 20px;
+}
+
+.payment-modal .qr-image {
+  width: 200px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00d4ff;
+}
+
+.animated-text {
+  color: #cfd8dc;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.paid-btn {
+  background-color: #00ffea;
+  color: #0a192f;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.paid-btn:hover {
+  background-color: #00d4ff;
+  color: #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+  color: #ff3366;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ff6699;
+}
+/* Dynamic QR Code in modal */
+.payment-modal canvas {
+  width: 200px !important;
+  height: 200px !important;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00d4ff;
+}
+/* ✅ Payment Success Overlay */
+.payment-success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 20, 30, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ✅ Success Box */
+.payment-success-box {
+  background: linear-gradient(145deg, #00d4ff, #00ffea);
+  color: #0a192f;
+  padding: 40px 50px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 25px #00eaff;
+  animation: popIn 0.6s ease-out;
+}
+
+.payment-success-box h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.payment-success-box p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* ✅ Success Animation Icon */
+.payment-success-box::before {
+  content: "✔";
+  display: block;
+  font-size: 3rem;
+  color: #0a192f;
+  background: #00ffea;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  margin: 0 auto 15px;
+  box-shadow: 0 0 20px rgba(0, 255, 234, 0.8);
+  animation: bounce 0.8s ease-in-out;
+}
+
+/* ✅ Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+/* ✅ Thanks Overlay Background */
+.thanks-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ✅ Popup Box */
+.thanks-popup {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  text-align: center;
+  color: #2d3436;
+  box-shadow: 0 8px 30px rgba(0, 150, 0, 0.25);
+  animation: popUp 0.5s ease-out;
+}
+
+/* ✅ Green Success Circle Animation */
+.success-animation {
+  margin-bottom: 20px;
+}
+
+.checkmark-circle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.checkmark-circle .background {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #dfffe0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: scaleIn 0.6s ease-out;
+}
+
+.checkmark {
+  position: absolute;
+  top: 35px;
+  left: 28px;
+  width: 45px;
+  height: 25px;
+  border-left: 5px solid #00b894;
+  border-bottom: 5px solid #00b894;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  opacity: 0;
+  animation: drawCheck 0.6s ease-out 0.3s forwards;
+}
+
+/* ✅ Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popUp {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes drawCheck {
+  0% {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-45deg) scale(1);
+  }
+}
+.whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  background-color: #25d366;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.whatsapp-link:hover {
+  background-color: #1ebe5d;
+  color: #fff;
+}
