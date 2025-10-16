@@ -15,7 +15,7 @@ export default function BookNowPage() {
   const [timeSlot, setTimeSlot] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const BASE_API_URL = process.env.BASE_API_URL;
+  const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
 
   // 🟦 Booking Handler
   const handleBooking = async (e) => {
@@ -43,6 +43,7 @@ export default function BookNowPage() {
           timeSlot,
         }),
       });
+
       const data = await res.json();
 
       if (res.ok) {
@@ -117,4 +118,4 @@ export default function BookNowPage() {
       </div>
     </div>
   );
-}
+} 
